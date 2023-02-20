@@ -19,7 +19,8 @@ def equaliza(gray):
         deve receber uma imagem e devolver uma imagem nova com o histograma equalizado
     """
     res = gray.copy()
-    return res
+    res -= res.min()
+    return (res * round(255/res.max()))
 
 
 if __name__ == "__main__":
