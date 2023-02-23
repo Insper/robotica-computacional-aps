@@ -22,9 +22,10 @@ def realca_caixa_vermelha(bgr):
         em que somente os pixels da caixa estão brancos e todo o restante está preto
         Dica: Use mais de um canal, por exemplo R e B
     """
-    res = bgr.copy()
-    gray = res[:,:,0]
-    return res
+    r, g, b = cv2.split(cv2.cvtColor((bgr.copy()), cv2.COLOR_BGR2RGB))
+    mascara_r, mascara_g, mascara_b = np.zeros_like(r), np.zeros_like(g), np.zeros_like(b)
+    mascara_r[r > 200], mascara_g[g < 120], mascara_b[b < 150] = 255, 255, 255
+    return cv2.bitwise_and(mascara_b, mascara_g, mask=mascara_r)
 
 
 if __name__ == "__main__":
